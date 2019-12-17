@@ -102,7 +102,7 @@
 
             });
 
-
+            $('a:not(.menuitem)').next().css("background-color", "#25272B");
 
 
             $(this.menu).find(".gn-search").on("keyup paste input", function () {
@@ -118,52 +118,65 @@
                         Window.keys_.push(value);
                     }
 
-
                 });
 
                 if (Window.keys_[0] == null) {
                     return
                 } else {
-                    console.log(Window.keys_[0].text());
+                    //Window.keys_[0].addClass('focusing');
+                    console.log('0. eleman background kontrol')
 
                 }
 
 
 
             });
-            var count = 0;
-            $(".gn-search").on('keyup', function (e) {
 
-                if (e.keyCode == 13) {
-                    $(Window.keys_[0]).focus();
-                    console.log("pressed e");
-                    $(Window.keys_[0]).focus();
-                    $(Window.keys_[0]).addClass('focusing');
 
-                } else if (e.which == 40) {
+            var count = -1;
+            $(".gn-search").on('keydown', function (e) {
+
+                if (e.keyCode == 9 || e.which == 40 || e.which == 38) {
+                    e.preventDefault();
+                }
+                if (e.which == 13) {
+
+                    if (count == -1) {
+                        $(Window.keys_[0])[0].click();
+                    } else {
+                        $(Window.keys_[count])[0].click();
+
+                    }
+                }
+
+                if (e.which == 40 || e.which == 9) {
                     if (Window.keys_.length > count + 1) {
-                        count += 1;
+                        count++;
                         console.log(count);
+                        $(Window.keys_[0]).removeClass('focusing');
                         $(Window.keys_[count]).addClass('focusing');
                         $(Window.keys_[count - 1]).removeClass('focusing');
+
                     }
 
                 } else if (e.which == 38) {
                     if (count > 0) {
-                        count -= 1;
+                        count--;
                         console.log(count);
                         $(Window.keys_[count]).addClass('focusing');
                         $(Window.keys_[count + 1]).removeClass('focusing');
                     }
-                } else if (e.which == 8) {
-                    $("a").removeClass('focusing')
+                } else if (e.which == 8 || e.which == 46) {
+                    $("a").removeClass('focusing');
+                    count = -1;
                 }
 
 
-                
+
 
             });
 
+           
 
             $(this.menu).find(".menuitem").on("click", function () {
 
@@ -203,28 +216,6 @@
                 });
 
             });
-
-
-
-            //$('a').on("click", function (e) {
-
-            //    console.log('_____', Window.keys)
-
-            //    //if (!(window.searched).hasClass('fa')) {
-            //    //    console.log((Window.searched).text());
-            //    //}
-            //    //console.log(Window.searched
-
-            //    //if ($(Window.searched).hasClass('fa')) {
-            //    //    console.log((Window.searched).text());
-            //    //}
-
-            //    //console.log((window.searched).text());
-            //    //$(window.searched).parents().toggle(true)
-            //    //$(window.searched).css("background-color", "red");
-
-            //    //alert(($(this)).text());
-            //});
 
 
 
@@ -269,14 +260,6 @@
                 console.log("close1")
             };
 
-            //$('#gn-menu ul.gn-menu li a.menuitem i').removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
-
-
-            //if ($('#gn-menu ul.gn-menu a.menuitem i').hasclass("fa fa-chevron-up")) {
-            //    $('#gn-menu ul.gn-menu a.menuitem i').removeclass("fa fa-chevron-up").addClass("fa fa-chevron-down");
-            //    console.log("5");
-            //}
-            //$('#gn-menu ul.gn-menu a.menuitem').next().toggle(false);
             this.isMenuOpen = false;
             classie.remove(this.menu, 'gn-open-all');
             this._closeIconMenu();

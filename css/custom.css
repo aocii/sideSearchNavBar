@@ -37,10 +37,12 @@
 .no-touch .gn-menu-main a:hover,
 .no-touch .gn-menu li.gn-search-item:hover,
 .no-touch .gn-menu li.gn-search-item:hover a {
-    background: #191D1B;
+    font-size: 17px;
+    font-weight:bold;
     color: white;
+    background-color: transparent;
 }
-.gn-menu-main ul{
+.gn-menu-main, .gn-menu-main ul{
     background: #191D1B;
     color: white;  
 }
@@ -59,7 +61,12 @@ html {
     width: 240px;
 }
 .focusing {
-    background-color: red;
+    background-color: darkred;
     border-radius: 10px;
     color: black;
+}
+.focused {
+    font-size:16px;
+    color: black;
+
 }
