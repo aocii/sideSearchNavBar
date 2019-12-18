@@ -102,7 +102,31 @@
 
             });
 
-            $('a:not(.menuitem)').next().css("background-color", "#25272B");
+
+            $("nav.gn-menu-wrapper").find("li:not(.gn-search-item)>a").next().css({
+                "background-color": "#25272B"
+            });
+
+
+            $('#gn-menu > li > nav > div > ul > li > ul').css({
+                "padding-left": "60px"
+            });
+
+            var selected;
+            var selected_;
+
+            //#gn - menu > li > nav > div > ul > li.selected > a
+            
+            $('a:not(.menuitem)').click(function () {
+
+                $(selected).removeClass('selected');
+                $(selected_).removeClass('focused');
+                selected = $(this).parentsUntil(".gn-menu").children("a.menuitem").last();
+                $(selected).addClass('selected');
+                selected_ = $(this);
+                $(selected_).addClass('focused');
+
+            });
 
 
             $(this.menu).find(".gn-search").on("keyup paste input", function () {
@@ -127,8 +151,6 @@
                     console.log('0. eleman background kontrol')
 
                 }
-
-
 
             });
 
@@ -176,7 +198,7 @@
 
             });
 
-           
+
 
             $(this.menu).find(".menuitem").on("click", function () {
 
@@ -187,28 +209,28 @@
                     var clicked = $(this).prev().children("i");
                     if ($(this).is(':visible')) {
 
-                        console.log("0.5");
+                        //console.log("0.5");
 
                         if (clicked.hasClass("fa fa-chevron-down")) {
-                            console.log("1")
+                            //console.log("1")
                             $(clicked).removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
 
                         }
 
                         else {
-                            console.log("2")
+                            //console.log("2")
                             $(clicked).removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
                         }
 
                     } else {
-                        console.log("2.5")
+                        //console.log("2.5")
 
 
                         if (clicked.hasClass("fa fa-chevron-up")) {
-                            console.log("3")
+                            //console.log("3")
                             $(clicked).removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
                         } else {
-                            console.log("4")
+                            //console.log("4")
                             $(clicked).removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
                         }
                     }
