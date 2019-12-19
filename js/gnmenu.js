@@ -97,7 +97,7 @@
                     Window.searched = item
 
                 });
-                console.log(Window.keys.length);
+                
 
 
             });
@@ -122,8 +122,8 @@
                 $(selected).removeClass('selected');
                 $(selected_).removeClass('focused');
                 selected = $(this).parentsUntil(".gn-menu").children("a.menuitem").last();
-                $(selected).addClass('selected');
                 selected_ = $(this);
+                $(selected).addClass('selected');
                 $(selected_).addClass('focused');
 
             });
@@ -136,7 +136,7 @@
                 console.log(Window.keys);
 
 
-                (Window.keys).forEach(function (value, index) {
+                (Window.keys).forEach(function (value) {
 
                     if (value.text() != '') {
                         Window.keys_.push(value);
@@ -146,11 +146,7 @@
 
                 if (Window.keys_[0] == null) {
                     return
-                } else {
-                    //Window.keys_[0].addClass('focusing');
-                    console.log('0. eleman background kontrol')
-
-                }
+                } 
 
             });
 
@@ -198,41 +194,15 @@
 
             });
 
-
-
             $(this.menu).find(".menuitem").on("click", function () {
-
-
-
                 $(this).next().toggle(100, function () {
-                    //$(this).css("background-color", "#25272B");
                     var clicked = $(this).prev().children("i");
                     if ($(this).is(':visible')) {
-
-                        //console.log("0.5");
-
-                        if (clicked.hasClass("fa fa-chevron-down")) {
-                            //console.log("1")
-                            $(clicked).removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
-
-                        }
-
-                        else {
-                            //console.log("2")
-                            $(clicked).removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
-                        }
-
+                        // $(this).parent().addClass("expanded");
+                        $(clicked).removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
                     } else {
-                        //console.log("2.5")
-
-
-                        if (clicked.hasClass("fa fa-chevron-up")) {
-                            //console.log("3")
-                            $(clicked).removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
-                        } else {
-                            //console.log("4")
-                            $(clicked).removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
-                        }
+                        // $(this).parent().removeClass("expanded");
+                        $(clicked).removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
                     }
 
                 });
@@ -240,6 +210,8 @@
             });
 
 
+            
+            
 
             //test--
 
@@ -257,6 +229,7 @@
             });
             this.menu.addEventListener(this.eventtype, function (ev) { ev.stopPropagation(); });
         },
+        
         _openIconMenu: function () {
             if (mobilecheck())
                 classie.add(this.menu, 'gn-open-part');
@@ -270,6 +243,7 @@
             classie.add(this.trigger, 'gn-selected');
             this.isMenuOpen = true;
             classie.add(this.menu, 'gn-open-all');
+            $('#gn-menu > li > nav > div > ul > li.gn-search-item > div').css("width","300px")
             this._closeIconMenu();
         },
         _closeMenu: function () {
@@ -281,7 +255,7 @@
                 $('ul.gn-menu li a.menuitem i').removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
                 console.log("close1")
             };
-
+            $('#gn-menu > li > nav > div > ul > li.gn-search-item > div').css("width","60px")
             this.isMenuOpen = false;
             classie.remove(this.menu, 'gn-open-all');
             this._closeIconMenu();

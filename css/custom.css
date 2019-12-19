@@ -1,7 +1,7 @@
 ﻿
 .menuitem + ul {
     display: none;
-    padding-left: 20px;
+    padding-left: 30px;
     font-size: 14px;
     line-height: 40px;
     text-indent: 10px;
@@ -80,13 +80,13 @@ html {
 .focused {
     font-size: 17px;
     font-weight: bold;
-    color: white;
+    color: white !important;
     background-color: transparent;
 }
 
 input.gn-search {
     color: black;
-    border-radius: 15px;
+    border-radius: 8px;
 }
 
 .selected {
@@ -95,3 +95,42 @@ input.gn-search {
     background: #25272B;
 }
 
+a i {
+    float: right;
+    padding: 20px;
+}
+
+#gn-menu .gn-search-container {
+    width: 60px;
+    padding: 0 12px;
+}
+
+#gn-menu .gn-search {
+    width: 100%;
+    padding-left: 20px;
+    height: 36px;
+}
+
+#gn-menu .gn-open-all .gn-search {
+    padding-left: 50px !important;
+}
+
+#gn-menu .gn-search::placeholder {
+    color: white;
+}
+
+#gn-menu .gn-search::-webkit-input-placeholder {
+    color: white;
+}
+
+#gn-menu .gn-open-all .gn-search::-webkit-input-placeholder {
+    color: black !important;
+}
+
+#gn-menu .gn-open-all .gn-search::placeholder {
+    color: black !important;
+}
+
+#gn-menu .gn-search-container > a {
+    pointer-events: none;
+}
