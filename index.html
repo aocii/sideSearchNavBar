@@ -28,17 +28,17 @@
             <li class="gn-trigger">
                 <a id="menu-button" class="gn-icon gn-icon-menu"><span>Menu</span></a>
                 <nav class="gn-menu-wrapper">
-                    <div class="gn-scroller">
-                        <ul class="gn-menu">
 
-                            <li class="gn-search-item">
-                                <div class="gn-search-container">
-                                    <input placeholder="Search" type="search" class="gn-search">
-                                    <a class="gn-icon gn-icon-search"><span>Search</span></a>
-                                </div>
+                    <ul class="gn-menu">
 
-                            </li>
+                        <li class="gn-search-item">
+                            <div class="gn-search-container">
+                                <input placeholder="Search" type="search" class="gn-search">
+                                <a class="gn-icon gn-icon-search"><span>Search</span></a>
+                            </div>
 
+                        </li>
+                        <div id="scroll">
 
                             <li>
 
@@ -60,7 +60,18 @@
                                                     <i class="fa fa-chevron-down"></i>
                                                 </a>
                                                 <ul>
-                                                    <li><a>Vec0</a></li>
+                                                    <li>
+                                                        <a class="menuitem">
+                                                            V-factor
+                                                            <i class="fa fa-chevron-down"></i>
+                                                        </a>
+                                                        <ul>
+                                                            <li><a>V0</a></li>
+                                                            <li><a>v1</a></li>
+                                                            <li><a>v2</a></li>
+                                                            <li><a>v3</a></li>
+                                                        </ul>
+                                                    </li>
                                                     <li><a>vec1</a></li>
                                                     <li><a>vec01</a></li>
                                                     <li><a>4</a></li>
@@ -82,7 +93,17 @@
                                     <li><a>Handling settings</a></li>
                                 </ul>
                             </li>
-                            <li><a class="gn-icon gn-icon-help">Help9</a></li>
+                            <li>
+                                <a class="gn-icon gn-icon-help menuitem">Help9V
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                                <ul>
+                                    <li><a>V0</a></li>
+                                    <li><a>v1</a></li>
+                                    <li><a>v2</a></li>
+                                    <li><a>v3</a></li>
+                                </ul>
+                            </li>
                             <li>
                                 <a class="gn-icon gn-icon-archive menuitem">
                                     Archives
@@ -123,13 +144,13 @@
                                     </li>
                                 </ul>
                             </li>
-                        </ul>
-                    </div>
-                    <!-- /gn-scroller -->
-                </nav>
-            </li>
+                    </ul>
+    </div>
+    <!-- /gn-scroller -->
+    </nav>
+    </li>
 
-        </ul>
+    </ul>
 
 
 
@@ -140,6 +161,7 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="js/classie.js"></script>
     <script src="js/gnmenu.js"></script>
+    <script src="js/jquery.slimscroll.js"> </script>
     <script>
         new gnMenu(document.getElementById('gn-menu'));
     </script>

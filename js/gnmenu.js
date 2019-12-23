@@ -68,7 +68,7 @@
 
             //test----
             Window.keys = [];
-
+            
 
             $(this.menu).find(".gn-search").on("keyup paste input", function () {
                 console.log($(this).val().toLowerCase());
@@ -187,6 +187,8 @@
             });
 
             $(this.menu).find(".menuitem").on("click", function () {
+                
+                
                 $(this).next().toggle(100, function () {
                     var clicked = $(this).prev().children("i");
                     if ($(this).is(':visible')) {
@@ -201,8 +203,42 @@
 
             });
 
+            // var visit = 0 ;
+            // var visited = [];
+            // $('#scroll > li > a').on("click",function (){
+            //     visited.push($(this).text());
+            //     visit++;
+            //     // console.log(visited)
+            //     if(visit>1){
+            //         $(visited[visit-1]).next().toggle();
+            //         visited.shift();
+            //         visit = 0;
+            //     }
+            //     console.log(visited)
+            //     console.log(visit);
+                
 
-            
+
+                // if($(this) != visited){
+                //     console.log()
+                // }
+
+
+                
+
+
+                // if($(this) == visited){
+                //     $(visited).toggle()
+                //     console.log('adadadasdadadad')
+                // }else{
+                //     $(this) = visited;  
+                // }
+
+                // $(visited).children().toggle()
+                // $(this) = visit;
+                // $(visit).children().toggle()
+                // $(this) = visited;
+            // });
             
 
             //test--
