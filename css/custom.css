@@ -2,7 +2,7 @@
     display: none;
     padding-left: 30px;
     font-size: 14px;
-    line-height: 40px;
+    line-height: 35px;
     text-indent: 10px;
 }
 
@@ -15,6 +15,7 @@
 .menuitem {
     cursor: pointer;
     width: 300px;
+    height: 50px;
 }
 
 .gn-menu-wrapper {
@@ -87,8 +88,10 @@ input.gn-search {
 
 .selected {
     border-left: 5px solid white;
+    border-bottom: 1px solid #191D1B;
+    border-top: 1px solid  #191D1B;
     z-index: 10;
-    background: #25272B;
+    background-color: #25272B;
 }
 
 #scroll>li>a>i {

@@ -41,7 +41,7 @@
             this.isMenuOpen = false;
             this.eventtype = mobilecheck() ? 'touchstart' : 'click';
             this._initEvents();
-
+            this._setSelected();
             var self = this;
             if (mobilecheck()) {
                 classie.remove(this.menu, 'gn-open-part');
@@ -68,7 +68,7 @@
 
             //test----
             Window.keys = [];
-            
+
 
             $(this.menu).find(".gn-search").on("keyup paste input", function () {
                 console.log($(this).val().toLowerCase());
@@ -96,7 +96,7 @@
                     Window.searched = item
 
                 });
-                
+
 
 
             });
@@ -106,17 +106,11 @@
                 "background-color": "#25272B"
             });
 
-            var selected;
-            var selected_;
+
 
             $('a:not(.menuitem)').click(function () {
 
-                $(selected).removeClass('selected');
-                $(selected_).removeClass('focused');
-                selected = $(this).parentsUntil(".gn-menu").children("a.menuitem").last();
-                selected_ = $(this);
-                $(selected).addClass('selected');
-                $(selected_).addClass('focused');
+                self._setSelected(false, $(this));
 
             });
 
@@ -138,7 +132,7 @@
 
                 if (Window.keys_[0] == null) {
                     return
-                } 
+                }
 
             });
 
@@ -186,60 +180,105 @@
 
             });
 
+
+            // var visited = [];
+
             $(this.menu).find(".menuitem").on("click", function () {
-                
-                
-                $(this).next().toggle(100, function () {
-                    var clicked = $(this).prev().children("i");
-                    if ($(this).is(':visible')) {
-                        // $(this).parent().addClass("expanded");
-                        $(clicked).removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
-                    } else {
-                        // $(this).parent().removeClass("expanded");
-                        $(clicked).removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
+
+
+                var isRootMenu = $(this).closest("ul").hasClass("gn-menu");
+                var menuItemContainer = $(this).parent().children("ul");
+
+                if (isRootMenu && !menuItemContainer.is(":visible")) {
+                    var allRootMenus = $(".gn-menu .gn-menu-scroll>li>ul");
+
+                    for (var i = 0; i < allRootMenus.length; i++) {
+                        menuitemToggle($(allRootMenus[i]).parent().children("a"), false);
                     }
 
-                });
+                }
+                menuitemToggle($(this));
 
+
+
+
+                // var val = $(this).text();
+                // var arr = $('#scroll > li > a').text();
+                // const isInArray = arr.includes(val);
+
+
+                // if (isInArray) {
+
+                //     visited.push($(this));
+
+
+                //     if (visited.length == 1) {
+
+                //         menuitemToggle($(this));
+                //         console.log('x1')
+                //         return
+
+                //     } else if (visited.length == 2) {
+
+                //         console.log('x2')
+                //         if (visited[0] == visited[1]) {
+                //             visited.shift();
+                //             menuitemToggle($(this));
+                //             console.log('x3')
+                //             return
+                //         } else {
+                //             console.log('x4')
+                //             menuitemToggle($(visited[0][0]));
+                //             visited.shift();
+                //             menuitemToggle($(this));
+                //         }
+
+                //     }
+
+                // } else {
+                //     console.log('x5');
+                //     menuitemToggle($(this))
+                // }
             });
 
-            // var visit = 0 ;
-            // var visited = [];
-            // $('#scroll > li > a').on("click",function (){
-            //     visited.push($(this).text());
-            //     visit++;
-            //     // console.log(visited)
-            //     if(visit>1){
-            //         $(visited[visit-1]).next().toggle();
-            //         visited.shift();
-            //         visit = 0;
-            //     }
-            //     console.log(visited)
-            //     console.log(visit);
-                
+
+            var menuitemToggle = function (clickedElement, toggle = null) {
+                if (toggle == null)
+                    toggle = !clickedElement.parent().children("ul").is(":visible");
 
 
-                // if($(this) != visited){
-                //     console.log()
-                // }
+
+                _toggle(clickedElement.parent().children("ul"), toggle, function () {
+                    var menuItem = $(this).parent().children("a");
+                    var arrowIcon = menuItem.children("i");
+
+                    if ($(this).parent().children("ul").is(":visible")) {
+                        // $(this).parent().addClass("expanded");
+                        arrowIcon.removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
+                    } else {
+                        // $(this).parent().removeClass("expanded");
+                        arrowIcon.removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
+                    }
 
 
-                
+
+                });
+            };
+
+            function _toggle(element, toggle, callback) {
+                var isVisible = element.is(":visible");
+                if (isVisible == toggle) {
+                    callback();
+                    return;
+                }
+
+                element.toggle(100, callback);
+
+            }
 
 
-                // if($(this) == visited){
-                //     $(visited).toggle()
-                //     console.log('adadadasdadadad')
-                // }else{
-                //     $(this) = visited;  
-                // }
 
-                // $(visited).children().toggle()
-                // $(this) = visit;
-                // $(visit).children().toggle()
-                // $(this) = visited;
-            // });
-            
+
 
             //test--
 
@@ -257,11 +296,28 @@
             });
             this.menu.addEventListener(this.eventtype, function (ev) { ev.stopPropagation(); });
         },
-        
+
         _openIconMenu: function () {
             if (mobilecheck())
                 classie.add(this.menu, 'gn-open-part');
         },
+        _setSelected: function (openMenu = false, selectedItem = null) {
+
+
+            if (selectedItem == null)
+                selectedItem = $(".gn-menu a[href='" + location.pathname + "']");
+
+            if (openMenu)
+                selectedItem.parents("ul:not(.gn-menu,.gn-menu-main)").toggle(true);
+
+            $(".gn-menu .menuitem.selected").removeClass('selected');
+            $(".gn-menu a.focused").removeClass('focused');
+
+            selectedItem.addClass("focused");
+            selectedItem.addClass('focused').parentsUntil(".gn-menu").children("a.menuitem").last().addClass("selected");
+            selectedItem.parentsUntil(".gn-menu").children("a.menuitem").find("i").removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
+        }
+        ,
         _closeIconMenu: function () {
             if (mobilecheck())
                 classie.remove(this.menu, 'gn-open-part');
@@ -271,7 +327,8 @@
             classie.add(this.trigger, 'gn-selected');
             this.isMenuOpen = true;
             classie.add(this.menu, 'gn-open-all');
-            this._closeIconMenu();
+            this._openIconMenu();
+            this._setSelected(true);
         },
         _closeMenu: function () {
             if (!this.isMenuOpen) return;
@@ -282,7 +339,7 @@
                 $('ul.gn-menu li a.menuitem i').removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
                 console.log("close1")
             };
-  
+
             this.isMenuOpen = false;
             classie.remove(this.menu, 'gn-open-all');
             this._closeIconMenu();
