@@ -14,7 +14,6 @@
 
 
 
-
     // http://stackoverflow.com/a/11381730/989439
     function mobilecheck() {
         var check = false;
@@ -67,7 +66,7 @@
             }
 
             //test----
-            Window.keys = [];
+
 
 
             $(this.menu).find(".gn-search").on("keyup paste input", function () {
@@ -83,7 +82,6 @@
 
                         $("nav.gn-menu-wrapper").find("li:not(.gn-search-item) ul").toggle(false);
                         $("nav.gn-menu-wrapper").find("li:not(.gn-search-item)").toggle(true);
-
 
                         return
                     }
@@ -114,7 +112,8 @@
 
             });
 
-
+            //getting the results of search and making an array for button control 
+            Window.keys = [];
             $(this.menu).find(".gn-search").on("keyup paste input", function () {
 
 
@@ -137,6 +136,7 @@
             });
 
 
+            //up-down-tab-enter button usage
             var count = -1;
             $(".gn-search").on('keydown', function (e) {
 
@@ -156,7 +156,6 @@
                 if (e.which == 40 || e.which == 9) {
                     if (Window.keys_.length > count + 1) {
                         count++;
-                        console.log(count);
                         $(Window.keys_[0]).removeClass('focusing');
                         $(Window.keys_[count]).addClass('focusing');
                         $(Window.keys_[count - 1]).removeClass('focusing');
@@ -166,7 +165,6 @@
                 } else if (e.which == 38) {
                     if (count > 0) {
                         count--;
-                        console.log(count);
                         $(Window.keys_[count]).addClass('focusing');
                         $(Window.keys_[count + 1]).removeClass('focusing');
                     }
@@ -177,11 +175,9 @@
 
 
 
-
             });
 
-
-            // var visited = [];
+            //------------------------------------
 
             $(this.menu).find(".menuitem").on("click", function () {
 
@@ -198,47 +194,6 @@
 
                 }
                 menuitemToggle($(this));
-
-
-
-
-                // var val = $(this).text();
-                // var arr = $('#scroll > li > a').text();
-                // const isInArray = arr.includes(val);
-
-
-                // if (isInArray) {
-
-                //     visited.push($(this));
-
-
-                //     if (visited.length == 1) {
-
-                //         menuitemToggle($(this));
-                //         console.log('x1')
-                //         return
-
-                //     } else if (visited.length == 2) {
-
-                //         console.log('x2')
-                //         if (visited[0] == visited[1]) {
-                //             visited.shift();
-                //             menuitemToggle($(this));
-                //             console.log('x3')
-                //             return
-                //         } else {
-                //             console.log('x4')
-                //             menuitemToggle($(visited[0][0]));
-                //             visited.shift();
-                //             menuitemToggle($(this));
-                //         }
-
-                //     }
-
-                // } else {
-                //     console.log('x5');
-                //     menuitemToggle($(this))
-                // }
             });
 
 
@@ -253,10 +208,10 @@
                     var arrowIcon = menuItem.children("i");
 
                     if ($(this).parent().children("ul").is(":visible")) {
-                        // $(this).parent().addClass("expanded");
+
                         arrowIcon.removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
                     } else {
-                        // $(this).parent().removeClass("expanded");
+
                         arrowIcon.removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
                     }
 
@@ -275,10 +230,20 @@
                 element.toggle(100, callback);
 
             }
+//-------------------------------------------
+ 
+            $(window).keydown(function (event) {
+                if (event.ctrlKey && (event.which == 13)) {
+                    $('#gn-menu > li > nav').addClass('gn-open-all');
+                    $('#gn-menu > li > nav > ul > li > div > input')[0].focus();
+                    $(window).on('click', function () {
+                        $('#gn-menu > li > nav').removeClass('gn-open-all'); 
+                    });
 
+                }
+            });
 
-
-
+//-------------------------------------------
 
             //test--
 
@@ -339,12 +304,13 @@
                 $('ul.gn-menu li a.menuitem i').removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
                 console.log("close1")
             };
-
+            $('#gn-menu > li > nav > ul > li > div >input').val('');
             this.isMenuOpen = false;
             classie.remove(this.menu, 'gn-open-all');
             this._closeIconMenu();
 
         }
+
 
     }
 
